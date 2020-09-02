@@ -1,0 +1,77 @@
+<!-- Page Content (header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row sm-2">
+            <!-- Título -->
+            <div class="col-sm-6">
+                <h1>Chat</h1>
+            </div>
+            <!-- Navegação histórica -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="admin">Home</a></li>
+                    <li class="breadcrumb-item active">Comunicação</li>
+                    <li class="breadcrumb-item active">Chat</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Page Content (conteúdo) -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- Para iniciar fechado, adicione collapsed-card na class-->                
+                <div class="card card-primary card-outline">
+                    
+                    <!-- ######################################################################### Cabeçalho -->
+                    <div class="card-header">
+
+                        <!-- Botão Ocultar ou exibir o card -->
+                        <div class="card-tools">
+                            <!-- Botão Abrir/fechar card (Icone: fa-minus ou fa-plus) -->
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                                title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <!-- Botão destruir card -->
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip"
+                                title="Remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <!-- ######################################################################### Chat -->
+                    <div class="card-body" style="background-color: #E5DDD5;">                        
+                        <div class="direct-chat-messages" style="overflow: hidden;">                            
+                            <div class="direct-chat-messages" id="direct-chatMenssage" name="direct-chatMenssage"> 
+                                <!-- Codigo está no tail -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer" style="background-color: #F0F0F0;">
+                        <form id="chat">
+                            <div class="input-group">
+                                <img class="direct-chat-img-p" id="photo" name="photo"
+                                    src="dist/img/usuarios/<%= foto_login %>" alt="message user image">
+                                <input type="text" id="username" name="username" value="<%= nome_login %>"
+                                    class="form-control form-control-sm" style="max-inline-size: fit-content;" readonly>
+                                <input type="text" id="message" name="message" placeholder="Type Message ..."
+                                    class="form-control form-control-sm" required>
+                                <span class="input-group-append">
+                                    <button type="submit" class="btn btn-primary"
+                                        style="height: 31px; font: -webkit-small-control;">Send</button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>            
+            </div>
+        </div>
+    </div>
+</section>

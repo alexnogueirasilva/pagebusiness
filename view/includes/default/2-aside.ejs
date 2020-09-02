@@ -1,0 +1,89 @@
+<!-- Brand Logo -->
+<a href="/admin#" class="brand-link">
+    <img src="dist/img/logo.png" alt="AdminLTE Logo" class="brand-image elevation-0">
+    <span class="brand-text font-weight-light" style="font-size: 15px">
+        <strong>C.A&nbsp; & &nbsp;A.N&nbsp;&nbsp;</strong>CodeTrap</span>
+</a>
+
+<!-- Sidebar -->
+<div class="sidebar">
+
+    <!-- Usuário logado -->
+    <div class="user-panel mt-2 pb-1 mb-2 d-flex">
+        <div class="image">
+            <img src="dist/img/usuarios/<%= foto_login %>" class="rounded-circle elevation-1" alt="User Image">
+        </div>
+        <div class="info">
+            <a href="#" class="d-block">
+                <%= nome_login %>
+            </a>
+            <span class="user-status">
+                <i class="fa fa-circle"></i>
+                <span>Online</span>
+            </span>
+        </div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+            <!-- /Menu Chat -->
+            <li class="nav-item has-treeview <%= ChatOpen %>">
+
+                <!-- Chat -->
+                <a href="#" class="nav-link <%= Chat %>">
+                    <i class="nav-icon fas fa-comment-dots"></i>
+                    <p>Comunicação<i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+
+                <!-- /Sub menus -->
+                <ul class="nav nav-treeview" id="myMenu">
+
+                    <!-- Chat -->
+                    <li class="nav-item">
+                        <a href="/chat" class="nav-link <%= CadChat %>">
+                            <i class="fas fa-comments nav-icon" style="font-size: smaller;"></i>
+                            <p>Chat</p>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <!-- /Menu cadastros -->
+            <li class="nav-item has-treeview <%= CadastroOpen %>">
+
+                <!-- Cadastro -->
+                <a href="#" class="nav-link <%= Cadastro %>">
+                    <i class="nav-icon fas fa-tools"></i>
+                    <p>Cadastros<i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+
+                <!-- /Sub menus -->
+                <ul class="nav nav-treeview" id="myMenu">
+
+                    <!-- Usuario -->
+                    <li class="nav-item">
+                        <a href="/usuario" class="nav-link <%= CadUsuario %>">
+                            <i class="fas fa-user-tie nav-icon" style="font-size: smaller;"></i>
+                            <p>Usuário</p>
+                        </a>
+                    </li>
+
+                    <!-- Material -->
+                    <li class="nav-item">
+                        <a href="/material" class="nav-link <%= CadMaterial %>">
+                            <i class="fas fa-cube nav-icon" style="font-size: smaller;"></i>
+                            <p>Material</p>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+        </ul>
+    </nav>
+</div>

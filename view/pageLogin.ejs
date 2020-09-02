@@ -1,0 +1,65 @@
+<%- include ("./includes/default/0-head") %>
+
+<!-- Aqui vc altera o tema de fundo: bg-theme2 -->
+<body class="bg-theme bg-theme4" id="body-page" name="body-page">
+
+    <!-- Efeito de fundo -->
+    <div id="particles-js"></div>
+
+    <!-- Formulário de Login -->
+    <div class="login-center-me">
+        <div class="login-card login-border-primary mb-3"
+            style="max-width: 20rem; z-index: 1000; width: 250px; box-shadow: 4px 4px 4px 2px #00000033;">
+
+            <!-- Logo marca -->
+            <div class="login-card-header" style="text-align: center;">
+                <img src="dist/img/LogoMakerCa.png" style="height: 60px;">
+            </div>
+
+            <div class="card-body">
+                <form action="/" method="post">
+                    <!-- Título -->
+                    <div class="form-group">
+                        <legend>Login</legend>
+                    </div>
+
+                    <!-- Campo usuário -->
+                    <div class="form-group">
+                        <small class="form-text login-text-muted mb-1">Usuário</small>
+                        <input type="text" class="login-form-control login-form-control-sm" id="usuario" name="usuario"
+                            placeholder="Usuário" value="<%= body.usuario %>">
+                    </div>
+
+                    <!-- Campo senha -->
+                    <div class="form-group">
+                        <small class="form-text login-text-muted mb-1">Senha</small>
+                        <div class="input-icon-group">
+                            <input type="password" class="login-form-control login-form-control-sm" id="senha"
+                                name="senha" placeholder="Senha" value="">
+                            <div class="input-icon" id="revelar_PASS" onclick="(function(){
+                                revelar(document.getElementById('revelar_PASS'), document.getElementById('senha'));
+                              })()">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botão Entrar -->
+                    <div class="form-group" style="float: right; margin-block-end: auto;">
+                        <button type="submit" class="login-btn login-btn-primary login-btn-sm login-btn-block"
+                            style="width: 80px;">Entrar</button>
+                    </div>
+
+                </form>
+                <!-- /.form -->
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- ./card -->
+    </div>
+    <!-- ./center-me -->
+
+    <!-- Utilizado pelo Toast no tail -->
+    <span style="display:none" id='status_Login'><%= status_Login %></span>
+
+    <%- include ("./includes/default/6-tail") %>

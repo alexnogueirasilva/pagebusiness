@@ -1,0 +1,35 @@
+<%- include ("./includes/default/0-head") %>
+
+    <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed text-sm" data-spy="scroll" data-target="#mynav" data-offset="85">
+
+        <!-- ./wrapper -->
+        <div class="wrapper">
+
+            <!-- Navbar. Menu superior -->
+            <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+                <%- include ("./includes/default/1-header") %>
+            </nav>
+
+            <!-- Main Sidebar. Menu esquerdo -->
+            <aside class="main-sidebar sidebar-dark-primary elevation-4">
+                <%- include ("./includes/default/2-aside") %>
+            </aside>
+
+            <!-- Content Wrapper. Conteúdo central -->
+            <aside class="content-wrapper" style="overflow: auto;">
+                <%- include (page) %>
+            </aside>
+
+            <!-- Control. Sidebar -->
+            <aside class="control-sidebar control-sidebar-dark">
+                <%- include ("./includes/default/4-sidebar") %>
+            </aside>
+
+            <!-- footer. Rodapé-->
+            <footer class="main-footer">
+                <%- include ("./includes/default/5-footer") %>
+            </footer>
+
+        </div>
+
+        <%- include ("./includes/default/6-tail") %>

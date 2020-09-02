@@ -1,0 +1,568 @@
+<!-- Page Content (header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row sm-2">
+            <!-- Título -->
+            <div class="col-sm-6">
+                <h1>Cadastro de usuário</h1>
+            </div>
+            <!-- Navegação histórica -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="admin">Home</a></li>
+                    <li class="breadcrumb-item active">Cadastros</li>
+                    <li class="breadcrumb-item active">Usuário</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Page Content (conteúdo) -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+
+                <!-- Para iniciar fechado, adicione collapsed-card na class-->
+                <div class="card card-primary card-outline">
+
+                    <!-- ######################################################################### Cabeçalho -->
+                    <div class="card-header">
+                        <!-- Botões -->
+                        <div class="btn-group">
+                            <!-- Abre o modal para INSERT -->
+                            <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal"
+                                data-target="#modalADD">
+                                &nbsp;Adicionar&nbsp;
+                            </button>
+                        </div>
+
+
+                        <div class="btn-group">
+                            <!-- Botão para exportar dados da tabela (tableExport) -->
+                            <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle"
+                                data-toggle="dropdown">
+                                <i class="fa fa-download" aria-hidden="true"></i>
+                                <span class="caret"></span>
+                            </button>
+
+                            <!-- Exportar -->
+                            <div class="dropdown-menu" role="menu">
+                                <!-- Exportar para Excel -->
+                                <a class="dropdown-item" style="cursor: pointer;" onclick="(function(){
+                                $('#TBtable').tableExport({type:'excel', fileName: 'Usuarios', exportHiddenCells: true, ignoreColumn:'[1],[5],[8]'});
+                                })()"><i class="fas fa-file-excel" style="color: #118311;"></i>&nbsp;&nbsp;Ms-Excel</a>
+                                <!-- Exportar para PDF -->
+                                <a class="dropdown-item" style="cursor: pointer;" onclick="(function(){
+                                $('#TBtable').tableExport({type:'pdf', fileName: 'Usuarios', exportHiddenCells: true, ignoreColumn:'[5],[8]'});
+                                })()"><i class="fas fa-file-pdf" style="color: #d17021;"></i>&nbsp;&nbsp;PDF</a>
+                            </div>
+                        </div>
+
+                        <!-- Botão Ocultar ou exibir o card -->
+                        <div class="card-tools">
+                            <!-- Botão Abrir/fechar card (Icone: fa-minus ou fa-plus) -->
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                                title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <!-- Botão destruir card -->
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip"
+                                title="Remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <!-- ######################################################################### Tabela -->
+                    <div class="card-body">
+
+                        <% if (DTUsuario.length > 0) {%>
+                        <table id="TBtable" class="table table-hover">
+
+                            <thead class="thead-light">
+                                <tr>
+                                    <!-- Cabeçalho: Titulos da tabela -->
+                                    <th scope="col">Cod</th>
+                                    <th scope="col">Foto</th>
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Usuario</th>
+                                    <th class="th-none" scope="col">Senha</th>
+                                    <!-- Coluna oculta -->
+                                    <th scope="col">Perfil</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Opcoes</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <% DTUsuario.forEach((row, index) => { %>
+                                <tr>
+                                    <!-- Detalhes: Dados da tabela -->
+                                    <td><%= row.cod %></td>
+                                    <td>
+                                        <a class='data_lighter' style="cursor: zoom-in;"
+                                            href="dist/img/usuarios/<%= row.foto %>">
+                                            <img src="dist/img/usuarios/<%= row.foto %>"
+                                                class="rounded-circle img-table-p" alt="">
+                                        </a>
+                                    </td>
+                                    <td><%= row.nome %></td>
+                                    <td><%= row.email %></td>
+                                    <td><%= row.usuario %></td>
+                                    <td class="td-none"><%= row.senha %></td>
+                                    <!-- Coluna oculta -->
+                                    <td><%= row.perfil %></td>
+                                    <td><%= row.status %></td>
+
+                                    <!-- Coluna: Opções -->
+                                    <td style="min-width: 130px;">
+                                        <button class="btn btn-xs btn-warning" data-toggle="modal"
+                                            data-target="#modalEDIT" onclick="(function(){                      
+                                            //Setando o valor nos campos de texto 
+                                            document.getElementById('cod_EDIT').value = '<%= row.cod %>';
+                                            document.getElementById('foto_EDIT').src = 'dist/img/usuarios/<%= row.foto %>';
+                                            document.getElementById('nome_EDIT').value = '<%= row.nome %>';
+                                            document.getElementById('email_EDIT').value = '<%= row.email %>';
+                                            document.getElementById('usuario_EDIT').value = '<%= row.usuario %>';
+                                            document.getElementById('senha_EDIT').value = '<%= row.senha %>';                                                    
+                                            
+                                            //Setando o valor no combobox perfil
+                                            $('#perfil_EDIT').val('<%= row.perfil %>');
+                                            $('#perfil_EDIT').trigger('change');
+                                        
+                                            //Setando o valor no checkbox ativo
+                                            if('<%= row.status %>' == '1'){                        
+                                                document.getElementById('status_EDIT').checked = true;                        
+                                            }else{
+                                                document.getElementById('status_EDIT').checked = false;                        
+                                            };
+
+                                            })()">&nbsp;&nbsp;&nbsp;Editar&nbsp;&nbsp;
+
+                                        </button>
+
+                                        <!-- Função anónima dentro da classe button
+                                             que seta o cod do registro selecionado no campo oculto do modal -->
+                                        <button class="btn btn-xs btn-danger" data-toggle="modal"
+                                            data-target="#modalDEL" onclick="(function(){
+                                            document.getElementById('cod_DEL').textContent = '<%= row.cod %>';
+                                            })()">Eliminar
+                                        </button>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                            </tbody>
+
+                            <!-- Pesquisa -->
+                            <tfoot>
+                                <tr>
+                                    <th scope="col">Cod</th>
+                                    <th scope="col">Foto</th>
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Usuario</th>
+                                    <th class="th-none" scope="col">Senha</th>
+                                    <!-- Coluna oculta -->
+                                    <th scope="col">Perfil</th>
+                                    <th scope="col">Status</th>
+                                    <th class="th-none" scope="col">Opcoes</th>
+                                </tr>
+                            </tfoot>
+
+                        </table>
+                        <% } else { %>
+                        <!-- Não existe dados na tabela -->
+                        <p class="text-center">Clique <a data-toggle="modal" data-target="#modalADD"
+                                style="cursor:pointer; color:rgb(79, 79, 255)"> aqui </a> para adicionar um novo
+                            registro.</p>
+                        <% } %>
+                    </div>
+
+                    <!-- ######################################################################### Modal para ADICIONAR -->
+                    <div class="modal fade" id="modalADD" data-backdrop="static">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <!-- Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Adicionar</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <!-- Conteúdo central do modal -->
+                                <form role="form" action="/addUsuario" method="post" enctype="multipart/form-data">
+                                    <!-- Campos do formulário -->
+                                    <div class="modal-body">
+                                        <!-- Cod -->
+                                        <div class="row" style="display: none;">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="cod_ADD" class="label">Cod</label>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        name="cod_ADD" id="cod_ADD" placeholder="Cod" readonly=“true”>
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                        
+                                        <div class="row">
+                                            <div class="col-sm-5" style="text-align: center;">
+                                                <!-- Imagem -->
+                                                <div class="form-group"
+                                                        style="align-items: center;display: inline-grid;">
+
+                                                    <!-- Imagem e opção para zoom -->
+                                                    <img class="img-thumbnail-usuario mx-auto d-block" name="foto_ADD" id="foto_ADD" src="dist/img/generic/usuario-no-image.png">
+                                                        
+                                                    <!-- Botão Upload que simula im clique no elemento input file oculto -->
+                                                    <button type="button"
+                                                        class="btn btn-default btn-xs"
+                                                        style="margin-top:5px;place-self: center;"
+                                                        onclick="document.getElementById('image_ADD').click()"><i
+                                                        class="fas fa-cloud-upload-alt"></i>&nbsp;&nbsp;Upload</button>
+
+                                                    <!-- Elemento input file oculto -->
+                                                    <div class="custom-file" style="display: none;">
+                                                        <input type="file" class="custom-file-input form-control-sm"
+                                                            name="image_ADD" id="image_ADD" onclick="(function(){
+                                                                document.getElementById('image_ADD').onchange = function (evt) {
+                                                                    var tgt = evt.target || window.event.srcElement,
+                                                                    files = tgt.files;                                 
+                                                                    if (FileReader && files && files.length) {
+                                                                        var fr = new FileReader();
+                                                                        fr.onload = function () {                                                                        
+                                                                        document.getElementById('foto_ADD').src = fr.result;                                                                
+                                                                        }                                  
+                                                                    fr.readAsDataURL(files[0]);
+                                                                    }
+                                                                }
+                                                            })()">
+                                                        <label class="custom-file-label" for="image_ADD"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-sm-7">                                                
+                                                <div class="row">
+                                                    <!-- Nome, Email -->
+                                                    <div class="col-sm-12">
+                                                        <!-- Nome -->
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group">
+                                                                    <label for="nome_ADD" class="label">Nome completo</label>
+                                                                    <input type="text" class="form-control form-control-sm"
+                                                                        name="nome_ADD" id="nome_ADD"
+                                                                        placeholder="Nome completo" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Email -->
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group">
+                                                                    <label for="email_ADD" class="label">E-mail</label>
+                                                                    <input type="email" class="form-control form-control-sm"
+                                                                        name="email_ADD" id="email_ADD" placeholder="E-mail">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Perfil, status -->
+                                                <div class="row">
+                                                    <!-- Perfil -->
+                                                    <div class="col-sm-9">
+                                                        <div class="form-group">
+                                                            <label for="perfil_ADD" class="label">Perfil</label>
+                                                            <select class="form-control form-control-sm select2"
+                                                                style="width: 100%;" name="perfil_ADD" id="perfil_ADD" required>
+                                                                <option value="">-- Selecione --</option>
+                                                                <% DTPerfis.forEach((row, index) => { %>
+                                                                <option value="<%= row.perfil %>"><%= row.perfil %></option>
+                                                                <% }) %>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Status -->
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group">
+                                                            <label for="status_ADD" class="label">Status</label>
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input class="custom-control-input" type="checkbox"
+                                                                    style="cursor: pointer" name="status_ADD" id="status_ADD">
+                                                                <label for="status_ADD" class="custom-control-label"
+                                                                    style="cursor: pointer">Ativo</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Usuario, senha -->
+                                                <div class="row">
+                                                    <!-- Usuario -->
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label for="usuario_ADD" class="label">Usuário</label>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                name="usuario_ADD" id="usuario_ADD" placeholder="Usuario">
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Senha -->
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label for="senha_ADD" class="label">Senha</label>
+                                                            <div class="input-group">
+                                                                <input type="password" class="form-control form-control-sm"
+                                                                    name="senha_ADD" id="senha_ADD" placeholder="Senha"
+                                                                    required>
+                                                                <div class="input-group-append" id="revelar_ADD"
+                                                                    style="cursor: pointer;" onclick="(function(){
+                                                                    revelar(document.getElementById('revelar_ADD'), document.getElementById('senha_ADD'));
+                                                                    })()">
+                                                                    <div class="input-group-text">
+                                                                        <span class="fas fa-eye"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Botões -->
+                                    <div class="modal-footer justify-content-between">
+                                        <button type="submit"
+                                            class="btn btn-primary" id="btnSalvar_ADD">&nbsp;&nbsp;Salvar&nbsp;&nbsp;</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Cancelar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ######################################################################### Modal para EDITAR -->
+                    <div class="modal fade" id="modalEDIT" data-backdrop="static">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <!-- Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Editar</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <!-- Conteúdo central do modal -->
+                                <form role="form"
+                                    action="/editUsuario/ <?= document.getElementById('cod_EDIT').value ?>"
+                                    method="post" enctype="multipart/form-data">
+                                    <!-- Formulário para Editar usuário -->                                
+                                    <div class="modal-body">
+
+                                        <!-- Cod -->
+                                        <div class="row" style="display: none;">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="cod_EDIT" class="label">Cod</label>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        name="cod_EDIT" id="cod_EDIT" placeholder="Cod" readonly=“true”>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row">                                            
+                                            <div class="col-sm-5" style="text-align: center;">
+                                                <!-- Imagem -->
+                                                <div class="form-group"
+                                                    style="align-items: center;display: inline-grid;">
+
+                                                    <!-- Imagem e opção para zoom -->
+                                                    <img class="img-thumbnail-usuario mx-auto d-block" name="foto_EDIT" id="foto_EDIT">
+                                                    
+                                                    <!-- Botão Upload que simula im clique no elemento input file oculto -->
+                                                    <button type="button"
+                                                        class="btn btn-default btn-xs"
+                                                        style="margin-top:5px;;place-self: center;"
+                                                        onclick="document.getElementById('image_EDIT').click()"><i
+                                                        class="fas fa-cloud-upload-alt"></i>&nbsp;&nbsp;Upload</button>
+
+                                                    <!-- Elemento input file oculto -->
+                                                    <div class="custom-file" style="display: none;">
+                                                        <input type="file" class="custom-file-input form-control-sm"
+                                                            name="image_EDIT" id="image_EDIT" onclick="(function(){
+                                                                document.getElementById('image_EDIT').onchange = function (evt) {
+                                                                    var tgt = evt.target || window.event.srcElement,
+                                                                    files = tgt.files;                                 
+                                                                    if (FileReader && files && files.length) {
+                                                                        var fr = new FileReader();
+                                                                        fr.onload = function () {                                                                        
+                                                                        document.getElementById('foto_EDIT').src = fr.result;                                                                
+                                                                        }                                  
+                                                                    fr.readAsDataURL(files[0]);
+                                                                    }
+                                                                }
+                                                            })()">
+                                                        <label class="custom-file-label" for="image_EDIT"></label>
+                                                    </div>
+                                                </div>
+                                            </div>                                        
+
+                                            <div class="col-sm-7">
+                                                <div class="row">
+                                                    <!-- Nome, Email -->
+                                                    <div class="col-sm-12">
+                                                        <!-- Nome -->
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group">
+                                                                    <label for="nome_EDIT" class="label">Nome</label>
+                                                                    <input type="text" class="form-control form-control-sm"
+                                                                        name="nome_EDIT" id="nome_EDIT"
+                                                                        placeholder="Nome completo" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Email -->
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group">
+                                                                    <label for="email_EDIT" class="label">E-mail</label>
+                                                                    <input type="email" class="form-control form-control-sm"
+                                                                        name="email_EDIT" id="email_EDIT" placeholder="E-mail">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Perfil, status -->
+                                                <div class="row">
+                                                    <!-- Perfil -->
+                                                    <div class="col-sm-9">
+                                                        <div class="form-group">
+                                                            <label for="perfil_EDIT" class="label">Perfil</label>
+                                                            <select class="form-control form-control-sm select2"
+                                                                style="width: 100%;" name="perfil_EDIT" id="perfil_EDIT" required>
+                                                                <% DTPerfis.forEach((row, index) => { %>
+                                                                <option value="<%= row.perfil %>"><%= row.perfil %></option>
+                                                                <% }) %>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Status -->
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group">
+                                                            <label for="status_EDIT" class="label">Status</label>
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input class="custom-control-input" type="checkbox"
+                                                                    style="cursor: pointer" name="status_EDIT" id="status_EDIT">
+                                                                <label for="status_EDIT" class="custom-control-label"
+                                                                    style="cursor: pointer">Ativo</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Usuario, senha -->
+                                                <div class="row">
+                                                    <!-- Usuario -->
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label for="usuario_EDIT" class="label">Usuário</label>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                name="usuario_EDIT" id="usuario_EDIT" placeholder="Usuario">
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Senha -->
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label for="senha_EDIT" class="label">Senha</label>
+                                                            <div class="input-group">
+                                                                <input type="password" class="form-control form-control-sm"
+                                                                    name="senha_EDIT" id="senha_EDIT" placeholder="Senha"
+                                                                    required>
+                                                                <div class="input-group-append" id="revelar_EDIT"
+                                                                    style="cursor: pointer;" onclick="(function(){
+                                                                    revelar(document.getElementById('revelar_EDIT'), document.getElementById('senha_EDIT'));
+                                                                    })()">
+                                                                    <div class="input-group-text">
+                                                                        <span class="fas fa-eye"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Botões -->
+                                    <div class="modal-footer justify-content-between">
+                                        <button type="submit"
+                                            class="btn btn-primary" id="btnSalvar_EDIT">&nbsp;&nbsp;Salvar&nbsp;&nbsp;</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Cancelar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ######################################################################### Modal para ELIMINAR -->
+                    <div class="modal fade" id="modalDEL" id="modal-danger" data-backdrop="static">
+                        <div class="modal-dialog">
+                            <div class="modal-content bg-danger">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Atenção!</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Tem certeza que deseja eliminar o registro selecionado?</p>
+                                </div>
+                                <div class="modal-footer justify-content-between">
+                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">
+                                        Não, cancelar
+                                    </button>
+
+                                    <!-- Esse span é oculto pois apenas recebe o texto contendo 
+                                         o cod para eliminação na função abaixo -->
+                                    <span style="display:none" id="cod_DEL"></span>
+
+                                    <!-- Função anónima dentro da classe button
+                                         que direciona para a route /delete/:id após o usuário clicar em sim no modal -->
+                                    <button type="button" class="btn btn-outline-light" onclick="(function() {
+                                            window.location = '/delUsuario/' + document.getElementById('cod_DEL').textContent;
+                                            })()" id="btnDeletar_DEL">Sim, eliminar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Grava o texto recebido da variável status_Crud do routes/usuario
+		 lá no "tails.ejs" tem uma função no final que verifica o que tem neste span"
+		 e dispara uma função de alerta do toastr de acordo com o texto -->
+<span style="display:none" id='status_Crud'><%= status_Crud %></span>
