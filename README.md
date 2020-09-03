@@ -46,7 +46,8 @@ instale o MySQL  : https://dev.mysql.com/downloads/windows/installer/8.0.html
 
 Inicie sua aplicação executando no CMD dentro da pasta do projeto, o comando: `nodemon app.js`
 
-Acesse a aplicação pelo endereço: `http://localhost:3000/`
+Acesse a aplicação pelo endereço: `27 packages are looking for funding
+    `
 Observação:
     - Se aparecer algum erro "module not found", é porque precisa instalar algum módulo necessário
     - Dê "CTRL+C" para resetar o cmd e instale o módulo solicitado utilizando o comando conforme 2.3: 

@@ -37,7 +37,7 @@
     "redis": "^3.0.2",
     "sessionstorage": "^0.1.0",
     "socket.io": "^2.3.0",
-    "sweetalert2": "^9.17.1",
+    "sweetalert2": "^9.17.2",
     "tinymce": "^5.4.2",
     "toastr2": "^3.0.0-alpha.15",
     "wowjs": "^1.1.3",
